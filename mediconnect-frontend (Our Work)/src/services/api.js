@@ -6,7 +6,17 @@ const USER_KEY = 'user';
 
 // 1. Private API (Attaches Token)
 const api = axios.create({
-    baseURL: "http://localhost:8080/api",
+    baseURL: import.meta.env.VITE_API_URL || "http://localhost:8080/api",
+    headers: {
+        "Content-Type": "application/json",
+    },
+});
+
+// ... (INTERIM CODE) ...
+
+// 2. Public API (No Token - for Login/Register)
+export const publicApi = axios.create({
+    baseURL: import.meta.env.VITE_API_URL || "http://localhost:8080/api",
     headers: {
         "Content-Type": "application/json",
     },
@@ -93,12 +103,6 @@ api.interceptors.request.use(
     }
 );
 
-// 2. Public API (No Token - for Login/Register)
-export const publicApi = axios.create({
-    baseURL: "http://localhost:8080/api",
-    headers: {
-        "Content-Type": "application/json",
-    },
-});
+
 
 export default api;

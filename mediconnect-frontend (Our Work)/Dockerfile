@@ -1,15 +1,23 @@
-# Build Stage
-FROM node:18-alpine AS build
-WORKDIR /app
-COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile
-COPY . .
-RUN yarn build
+# Use Node.js 20 on Alpine Linux (Lightweight)
+FROM node:20-alpine
 
-# Production Stage (Nginx)
-FROM nginx:alpine
-COPY --from=build /app/dist /usr/share/nginx/html
-# Optional: Copy custom nginx config if we need to handle React Router routing
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+# Set working directory
+WORKDIR /app
+
+# Install Yarn explicitly
+RUN npm install -g yarn
+
+# Copy package.json and package-lock.json first (for better caching)
+COPY package.json package-lock.json ./
+
+# Install dependencies
+RUN npm install
+
+# Copy the rest of the application code
+COPY . .
+
+# Expose the port Vite runs on
+EXPOSE 5173
+
+# Start the application
+CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0"]
