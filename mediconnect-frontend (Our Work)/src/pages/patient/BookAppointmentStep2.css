@@ -1,0 +1,167 @@
+/* Page container reused */
+.page-container {
+    width: 100%;
+    max-width: 750px;
+    margin: 20px auto;
+    background: #fff;
+    border-radius: 16px;
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Header */
+  .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  
+  .close-btn {
+    font-size: 28px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    opacity: 0.6;
+  }
+  
+  .close-btn:hover {
+    opacity: 1;
+  }
+  
+  /* Step Indicator */
+  .step-indicator {
+    display: flex;
+    gap: 20px;
+    padding: 20px 24px;
+  }
+  
+  .step {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #e5e7eb;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #444;
+    font-weight: 600;
+  }
+  
+  .step.active {
+    background: black;
+    color: white;
+  }
+  
+  .step.completed {
+    background: #000;
+    color: white;
+    opacity: 0.8;
+  }
+  
+  /* Doctor Card */
+  .doctor-card {
+    margin: 10px 24px;
+    background: #f4f2fe;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+  }
+  
+  .doctor-icon {
+    background: #8b5cf6;
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Calendar */
+  .calendar-box {
+    margin: 24px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 14px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  }
+  
+  .calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+  }
+  
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 40px);
+    gap: 8px;
+    justify-content: center;
+    margin-top: 12px;
+  }
+  
+  .calendar-day-label {
+    text-align: center;
+    font-weight: 600;
+    color: #888;
+  }
+  
+  .calendar-day {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    background: #f3f4f6;
+  }
+  
+  .calendar-day.inactive {
+    background: transparent;
+    color: transparent;
+    pointer-events: none;
+  }
+  
+  .calendar-day.selected {
+    background: black;
+    color: white;
+  }
+  
+  /* Footer */
+  .modal-footer {
+    margin-top: auto;
+    padding: 20px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .secondary-btn,
+  .primary-btn {
+    padding: 10px 18px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  
+  .primary-btn {
+    background: black;
+    color: white;
+  }
+  
+  .primary-btn:disabled {
+    background: #ccc;
+    color: #666;
+  }
+  

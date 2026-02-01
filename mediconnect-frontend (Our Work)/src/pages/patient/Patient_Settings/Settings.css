@@ -1,0 +1,134 @@
+* {
+  font-family: "Poppins", "Segoe UI", Arial, sans-serif;
+}
+
+h3 {
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+p {
+  color: #6c757d;
+  margin-bottom: 20px;
+}
+
+.settings-navbar {
+  display: flex;
+  background: #f3f4f6;
+  border-radius: 999px;
+  padding: 6px;
+  gap: 6px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.settings-tab {
+  border: none;
+  background: transparent;
+  padding: 8px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 999px;
+  color: #000;
+  transition: 0.2s ease;
+}
+
+.settings-tab:hover {
+  background: #e5e7eb;
+}
+
+.settings-tab.active {
+  background: #ffffff;
+  color: #000;
+  box-shadow: 0 0 0 1px #e5e7eb;
+}
+
+.card {
+  border-radius: 14px !important;
+  border: 1px solid #e5e7eb;
+}
+
+.form-control,
+.form-select {
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  background: #f9fafb;
+  font-size: 14px;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: #000 !important;
+  box-shadow: none !important;
+}
+
+.form-check-input {
+  width: 40px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.form-check-input:checked {
+  background-color: #000 !important;
+  border-color: #000 !important;
+}
+
+.form-check-input:focus {
+  box-shadow: none !important;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 22px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #000;
+}
+
+input:checked + .slider:before {
+  transform: translateX(18px);
+}
+
+.btn-dark {
+  border-radius: 10px;
+  background: #000 !important;
+  border: none;
+}
+
+.settings-content .card {
+  margin-top: 10px;
+}

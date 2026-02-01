@@ -1,0 +1,519 @@
+.doctor-container {
+  padding: 24px;
+  background: #fff;
+  font-family: Inter, system-ui, -apple-system, sans-serif;
+}
+
+
+.header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.header-row h2 {
+  margin: 0;
+  font-size: 26px;
+}
+
+.header-row p {
+  margin: 4px 0 0 0;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.btn-dark {
+  background: #0b0c17;
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 10px;
+  font-weight: 500;
+}
+
+
+.summary-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  margin-bottom: 22px;
+}
+
+.summary-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 16px;
+  background: #fff;
+}
+
+.summary-card div {
+  font-size: 13px;
+  color: #6b7280;
+  margin-bottom: 6px;
+}
+
+.summary-card h3 {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 600;
+}
+
+
+.tabs {
+  display: inline-flex;
+  background: #f3f4f6;
+  border-radius: 999px;
+  padding: 4px;
+  margin-bottom: 18px;
+}
+
+.tabs button {
+  border: none;
+  background: transparent;
+  padding: 8px 18px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #000;
+  cursor: pointer;
+}
+
+.tabs .active {
+  background: #fff;
+}
+
+
+.card-full {
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 18px;
+  background: #fff;
+}
+
+.card-full h4 {
+  font-size: 15px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+
+.appointment-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 16px;
+  background: #fff;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.appointment-card h5 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.patient-id {
+  font-size: 13px;
+  color: #6b7280;
+  margin-top: 2px;
+}
+
+
+.badge {
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: capitalize;
+  display: inline-block;
+  border: 1px solid #e5e7eb;
+}
+
+
+.badge.scheduled {
+  background: #f3f4f6;
+  color: #111827;
+}
+
+
+.badge.confirmed {
+  background: #000;
+  color: #fff;
+}
+
+
+.badge.cancelled {
+  background: #fff;
+  color: #ef4444;
+  border: 1px solid #ef4444;
+}
+
+.type-badge {
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: capitalize;
+  margin-left: 8px;
+  border: 1px solid transparent;
+}
+
+
+.type-badge.consultation {
+  background: #dbeafe;
+  color: #2563eb;
+  border: 1px solid #93c5fd;
+}
+
+
+.type-badge.follow-up {
+  background: #dcfce7;
+  color: #16a34a;
+  border: 1px solid #86efac;
+}
+
+
+.meta-row {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  font-size: 13px;
+  margin-top: 10px;
+  color: #111827;
+}
+
+.notes {
+  background: #f3f4f6;
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-size: 13px;
+  margin-top: 12px;
+}
+
+.actions {
+  gap: 10px;
+}
+
+.btn-complete {
+  background: #000;
+  color: #fff;
+  border: 1px solid #000;
+  border-radius: 20px;
+  padding: 6px 16px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.btn-cancel {
+  background: #fff;
+  color: #ef4444;
+  border: 1px solid #ef4444;
+  border-radius: 20px;
+  padding: 6px 16px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.upcoming-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.upcoming-card .patient-name {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.upcoming-card .badges-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.upcoming-card .appointment-meta {
+    margin-top: 5px;
+}
+
+/* Availability Section */
+.availability-wrapper {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    padding: 20px;
+}
+
+.availability-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.availability-title {
+    margin: 0;
+}
+
+.btn-edit-schedule {
+    font-size: 12px;
+    padding: 6px 12px;
+}
+
+.availability-subtitle {
+    color: #6b7280;
+    margin-bottom: 20px;
+}
+
+.availability-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    padding: 16px;
+    margin-bottom: 1rem;
+}
+
+.availability-day-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.availability-date {
+    font-weight: 600;
+}
+
+.availability-status {
+    font-size: 0.875rem;
+}
+
+.availability-slots {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.availability-slot {
+    background: #f3f4f6;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 13px;
+    color: #374151;
+    font-weight: 500;
+}
+
+/* Modal */
+.modal-box {
+    max-width: 800px;
+}
+
+.day-selector {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    margin-bottom: 20px;
+}
+
+.day-btn {
+    padding: 8px 16px;
+    border-radius: 20px;
+    border: 1px solid #e5e7eb;
+    background-color: white;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.day-btn.selected {
+    border: 2px solid #000;
+    background-color: #f3f4f6;
+}
+
+.day-btn.disabled {
+    background-color: #f9fafb;
+    color: #9ca3af;
+    cursor: not-allowed;
+}
+
+.slots-section h5 {
+    margin-bottom: 10px;
+}
+
+.slots-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.slot-btn {
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+    background-color: white;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.slot-btn.selected {
+    background-color: #111827;
+    color: white;
+}
+
+.modal-actions {
+    margin-top: 30px;
+}
+
+.upcoming-card:hover {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.patient-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: #111827;
+  margin: 0;
+}
+
+
+.status-pill.confirmed {
+  display: inline-block;
+  width: fit-content;
+  background: #000;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 4px 12px;
+  border-radius: 999px;
+}
+
+
+.appointment-meta {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+
+.appointment-notes {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.availability-wrapper {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 20px;
+}
+
+.availability-title {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.availability-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 16px 18px;
+  margin-bottom: 14px;
+}
+
+.availability-date {
+  font-size: 14px;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 4px;
+}
+
+.availability-time {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.availability-note {
+  font-size: 13px;
+  color: #6b7280;
+  margin-top: 6px;
+}
+
+.availability-status {
+  background: #000;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: 999px;
+}
+
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-box {
+  background: #fff;
+  border-radius: 16px;
+  width: 420px;
+  padding: 20px;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-header h4 {
+  margin: 0;
+}
+
+.modal-form label {
+  font-size: 13px;
+  margin-top: 12px;
+  display: block;
+}
+
+.modal-form input,
+.modal-form select,
+.modal-form textarea {
+  width: 100%;
+  margin-top: 6px;
+  padding: 10px;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.modal-actions button {
+  padding: 10px 16px;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+}
+
+.modal-actions .btn-dark {
+  background: #0b0c17;
+  color: white;
+  border: none;
+}

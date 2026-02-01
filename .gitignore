@@ -1,0 +1,27 @@
+# Credentials & Secrets
+.env
+.DS_Store
+
+# Frontend
+mediconnect-frontend (Our Work)/node_modules/
+mediconnect-frontend (Our Work)/dist/
+mediconnect-frontend (Our Work)/.vite/
+mediconnect-frontend (Our Work)/yarn-error.log
+
+# Backend (Java/Maven)
+spring_boot_backend_template (Our Work)/target/
+spring_boot_backend_template (Our Work)/.mvn/
+spring_boot_backend_template (Our Work)/mvnw
+spring_boot_backend_template (Our Work)/mvnw.cmd
+*.class
+*.jar
+*.war
+
+# IDEs
+.idea/
+.vscode/
+*.iml
+
+# Logs
+logs/
+*.log

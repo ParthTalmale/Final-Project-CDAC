@@ -1,0 +1,30 @@
+.pill-tabs {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+
+.pill-tab {
+  text-decoration: none;
+  color: #000;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: 999px;
+  transition: background-color 0.2s ease;
+}
+
+/* Hover (very light, optional) */
+.pill-tab:hover {
+  background-color: #f5f5f5;
+}
+
+/* ACTIVE TAB — PURE WHITE */
+.pill-active {
+  background-color: #FAF9F6;     
+  box-shadow: 0 0 0 1px #e5e7eb;  
+}
+
+/* .form-check-input[type="checkbox"] {
+  appearance: auto !important;
+  -webkit-appearance: auto !important;
+} */

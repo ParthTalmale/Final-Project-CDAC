@@ -1,0 +1,144 @@
+/* ============================
+   LIGHT MODE (DEFAULT)
+=============================== */
+:root {
+    --bg-color: #f8f9ff;
+    --text-color: #000;
+
+    --sidebar-bg: #fff;
+
+    --card-bg: #fff;
+    --card-inner-bg: #f5f5f5;
+    --card-inner-text: #000;
+
+    --nav-active-bg: #121212;
+    --nav-active-text: #fff;
+
+    --input-bg: #fff;
+    --input-text: #000;
+    --input-border: #ced4da;
+
+    --border-color: #e5e5e5;
+}
+
+/* ============================
+   DARK MODE OVERRIDES
+=============================== */
+.dark-mode {
+    --bg-color: #1c1c1c;
+    --text-color: #fff;
+
+    --sidebar-bg: #101010;
+
+    --card-bg: #181818;
+    --card-inner-bg: #2a2a2a;
+    --card-inner-text: #fff;
+
+    --nav-active-bg: #4a90e2;
+    --nav-active-text: #fff;
+
+    --input-bg: #222;
+    --input-text: #fff;
+    --input-border: #444;
+
+    --border-color: #333;
+}
+
+/* ============================
+   GLOBAL
+=============================== */
+body {
+    background: var(--bg-color) !important;
+    color: var(--text-color) !important;
+    transition: background 0.3s, color 0.3s;
+}
+
+/* ============================
+   CARDS
+=============================== */
+.card,
+.card-inner {
+    background: var(--card-bg) !important;
+    color: var(--text-color) !important;
+    border-color: var(--border-color) !important;
+}
+
+.card-inner {
+    background: var(--card-inner-bg) !important;
+    color: var(--card-inner-text) !important;
+}
+
+/* ============================
+   FORM INPUTS
+=============================== */
+input,
+select,
+textarea {
+    background: var(--input-bg) !important;
+    color: var(--input-text) !important;
+    border-color: var(--input-border) !important;
+}
+
+/* ============================
+   SIDEBAR
+=============================== */
+.sidebar-custom {
+    background: var(--sidebar-bg) !important;
+    color: var(--text-color) !important;
+}
+
+/* ============================
+   SIDEBAR LINKS
+=============================== */
+.nav-link {
+    padding: 10px;
+    border-radius: 8px;
+    color: var(--text-color) !important;
+    transition: background 0.2s, color 0.2s;
+}
+
+/* Light Mode Hover */
+body:not(.dark-mode) .nav-link:hover {
+    background: #f1f1f1 !important;
+}
+
+/* Dark Mode Hover */
+body.dark-mode .nav-link:hover {
+    background: #2a2a2a !important;
+}
+
+/* Active Link */
+.active-link {
+    background: var(--nav-active-bg) !important;
+    color: var(--nav-active-text) !important;
+}
+
+/* ============================
+   BUTTONS
+=============================== */
+.btn-dark {
+    background: #121212 !important;
+    color: #fff !important;
+}
+
+.dark-mode .btn-dark {
+    background: #fff !important;
+    color: #000 !important;
+}
+
+/* ============================
+   DROPDOWNS
+=============================== */
+.dropdown-menu {
+    background: var(--card-bg) !important;
+    border-color: var(--border-color) !important;
+}
+
+.dropdown-item {
+    color: var(--text-color) !important;
+}
+
+.dropdown-item:hover {
+    background: #2a2a2a20 !important;
+    /* subtle transparent hover */
+}
