@@ -1,12 +1,14 @@
 # Build Stage
-FROM maven:3.9.6-eclipse-temurin-17 AS build
+FROM openjdk:21-jdk-slim AS build
 WORKDIR /app
+COPY mvnw .
+COPY .mvn .mvn
 COPY pom.xml .
-COPY src ./src
-RUN mvn clean package -DskipTests
+COPY src src
+RUN ./mvnw clean package -DskipTests
 
 # Run Stage
-FROM eclipse-temurin:17-jre-alpine
+FROM openjdk:21-jdk-slim
 WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
 EXPOSE 8080

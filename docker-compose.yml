@@ -1,39 +1,51 @@
-version: '3.8'
-
 services:
   # 1. Database Service
-  mysql_db:
+  mysql:
     image: mysql:8.0
-    container_name: mediconnect_db
+    container_name: mysql-container
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: mediconnect_db
     ports:
-      - "3307:3306" # Maps host 3307 to container 3306 (avoids conflict if you have local MySQL)
+      - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   # 2. Backend Service
   backend:
     build: ./spring_boot_backend_template (Our Work)
-    container_name: mediconnect_backend
+    container_name: backend-app
+    depends_on:
+      mysql:
+        condition: service_healthy
     ports:
       - "8080:8080"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql_db:3306/mediconnect_db?useSSL=false&allowPublicKeyRetrieval=true
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: root
-    depends_on:
-      - mysql_db
+      # Use service name 'mysql' as hostname
+      DB_URL: jdbc:mysql://mysql:3306/mediConnectDb?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
+      DB_USERNAME: root
+      DB_PASSWORD: root
+      RAZORPAY_KEY: rzp_test_SA3qJqIkr0IH3u
+      RAZORPAY_SECRET: rhMAmdHBMZUxX1BUahx0myrG
 
   # 3. Frontend Service
   frontend:
     build: ./mediconnect-frontend (Our Work)
-    container_name: mediconnect_frontend
-    ports:
-      - "80:80" # Exposed on Port 80
+    container_name: frontend-app
     depends_on:
       - backend
+    ports:
+      - "5173:5173"
+    environment:
+      # Browser needs to reach backend. 
+      # On Linux --net host is best, but for Compose bridge network, 
+      # we usually point client to localhost if mapped, or reverse proxy.
+      # For simplicity in dev, we point to localhost as the user accesses via browser.
+      VITE_API_URL: http://localhost:8080/api
 
 volumes:
   mysql_data:

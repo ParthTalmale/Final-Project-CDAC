@@ -1,242 +1,184 @@
-# 🚀 Master Linux Deployment Guide
+# 🚀 Master Linux Deployment Guide (The Complete Edition)
 
-This is the **complete guide**. It contains every step you need, from installing software to running the project.
+This guide is split into **TWO PATHS**. You only need to choose **one**.
+
+*   **PATH A: Manual Deployment** (Great for understanding how things work. Uses `run.sh`, etc.)
+*   **PATH B: Docker Compose** (The "One-Click" automation. Skips manual setup.)
 
 ---
 
-## Part 1: Install Software (Prerequisites)
+# 📦 PRE-REQUISITES (Do this for BOTH Paths)
 
-Run these commands on your Linux Terminal to get everything ready.
+Run these commands on your Linux Terminal first.
 
-### 1. Update System
+## 1. Update System
 ```bash
 sudo apt update && sudo apt upgrade -y
 ```
 
-### 2. Install Java 21 (Required for Backend)
+## 2. Install Docker (Highly Recommended)
 ```bash
-sudo apt install openjdk-21-jdk -y
-# Verify
-java -version
+sudo apt install docker.io -y
+sudo apt install docker-compose-v2 -y
 ```
 
-### 3. Install Node.js, NPM, and Yarn (Required for Frontend)
+## 3. Install Java & Node (Only needed for PATH A)
+*If you are choosing Path B (Compose), you can SKIP this step!*
 ```bash
-# Install Node & NPM
+# Java for Backend
+sudo apt install openjdk-21-jdk -y
+
+# Node & npm for Frontend
 curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
 sudo apt install -y nodejs
-
-# Install Yarn
 sudo npm install -g yarn
-
-# Verify
-node -v
-yarn -v
 ```
 
 ---
 
-## Part 2: Database Setup (Choose ONE)
+# 🛣️ PATH A: Manual Deployment
+*Follow this path if you want to run things yourself piece-by-piece.*
 
-### Option A: Use Docker (Recommended) 🐳
-This is the cleanest way.
+## Step 1: Database Setup
 
-1.  **Run MySQL Container:**
-    ```bash
-    sudo docker run --name mysql-container -e MYSQL_ROOT_PASSWORD=root -p 3306:3306 -d mysql:8.0
-    ```
-2.  **Enter Container:**
-    ```bash
-    sudo docker exec -it mysql-container mysql -u root -p
-    # Password is: root
-    ```
-3.  **Run SQL (Copy-Paste this inside):**
-    ```sql
-    CREATE DATABASE IF NOT EXISTS mediConnectDb;
-    -- Allows connection from outside the container
-    CREATE USER 'medi_user'@'%' IDENTIFIED BY 'medi_password';
-    GRANT ALL PRIVILEGES ON mediConnectDb.* TO 'medi_user'@'%';
-    FLUSH PRIVILEGES;
-    EXIT;
-    ```
+### Option 1: MySQL in Docker (Recommended)
+```bash
+sudo docker run --name mysql-container -e MYSQL_ROOT_PASSWORD=root -p 3306:3306 -d mysql:8.0
+```
+**Then Log in and Create Data:**
+```bash
+sudo docker exec -it mysql-container mysql -u root -p
+# Pwd: root
+```
+```sql
+CREATE DATABASE IF NOT EXISTS mediConnectDb;
+CREATE USER 'medi_user'@'%' IDENTIFIED BY 'medi_password';
+GRANT ALL PRIVILEGES ON mediConnectDb.* TO 'medi_user'@'%';
+FLUSH PRIVILEGES;
+EXIT;
+```
 
-### Option B: Install Directly on Linux
-If you don't want Docker, install MySQL directly.
-
+### Option 2: MySQL Native Install
 ```bash
 sudo apt install mysql-server -y
 sudo mysql_secure_installation
-# Then log in and create user/db similar to above, but use 'localhost' instead of '%'
+# Then log in and create user/db manually
 ```
 
----
-
-## Part 3: Deploy Backend (Choose ONE)
+## Step 2: Backend Deployment
 
 Navigate to: `Fixing Broken Project/spring_boot_backend_template (Our Work)`
 
-### Option A: Run from Source (Dev Mode) - **EASIEST** ✅
-Use this to just "run" it like you do in Windows.
-
-1.  **Create the script:** `nano run.sh`
-2.  **Paste this exact content:**
-    ```bash
-    #!/bin/bash
-    
-    # Database Config
-    export DB_URL="jdbc:mysql://localhost:3306/mediConnectDb?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true"
-    export DB_USERNAME="medi_user"
-    export DB_PASSWORD="medi_password" 
-    
-    # API Keys
-    export RAZORPAY_KEY="rzp_test_SA3qJqIkr0IH3u"
-    export RAZORPAY_SECRET="rhMAmdHBMZUxX1BUahx0myrG"
-    
-    echo "🚀 Starting Backend..."
-    chmod +x mvnw
-    ./mvnw spring-boot:run
-    ```
-3.  **Run it:**
-    ```bash
-    chmod +x run.sh
-    ./run.sh
-    ```
-
-### Option B: Run as JAR (Production Mode) - **IMPRESSIVE** 🏆
-Use this to show the interviewer you know how to package apps for a real server.
-
-**Step 1: Build the JAR File**
-This bundles your code into a single executable file.
-```bash
-./mvnw clean package -DskipTests
-```
-*Wait for "BUILD SUCCESS". This creates a file in `target/spring_boot_backend_template-0.0.1.jar`.*
-
-**Step 2: Create a Production Run Script**
-Since you need the environment variables here too, let's make a script called `run_prod.sh`.
-
-```bash
-nano run_prod.sh
-```
-
-**Paste this exact content (It's the same as `run.sh` but runs the JAR):**
+### Option A: Run from Source (Dev Style)
+**1. Create script:** `nano run.sh`
+**2. Paste:**
 ```bash
 #!/bin/bash
-
-# --- 1. CONFIGURATION ---
 export DB_URL="jdbc:mysql://localhost:3306/mediConnectDb?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true"
 export DB_USERNAME="medi_user"
 export DB_PASSWORD="medi_password" 
-
 export RAZORPAY_KEY="rzp_test_SA3qJqIkr0IH3u"
 export RAZORPAY_SECRET="rhMAmdHBMZUxX1BUahx0myrG"
 
-# --- 2. RUN THE JAR ---
-echo "🚀 Starting Production Backend (JAR)..."
-# The 'target' folder is where Maven puts the built file
-java -jar target/spring_boot_backend_template-0.0.1.jar
+echo "🚀 Starting Backend from Source..."
+chmod +x mvnw
+./mvnw spring-boot:run
+```
+**3. Run:**
+```bash
+chmod +x run.sh
+./run.sh
 ```
 
-**Step 3: Run It**
+### Option B: Run as JAR (Production Style)
+**1. Build:**
+```bash
+./mvnw clean package -DskipTests
+```
+**2. Create script:** `nano run_prod.sh`
+**3. Paste:**
+```bash
+#!/bin/bash
+# (Variables included for convenience)
+export DB_URL="jdbc:mysql://localhost:3306/mediConnectDb?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true"
+export DB_USERNAME="medi_user"
+export DB_PASSWORD="medi_password" 
+export RAZORPAY_KEY="rzp_test_SA3qJqIkr0IH3u"
+export RAZORPAY_SECRET="rhMAmdHBMZUxX1BUahx0myrG"
+
+echo "🚀 Starting JAR..."
+java -jar target/spring_boot_backend_template-0.0.1.jar
+```
+**4. Run:**
 ```bash
 chmod +x run_prod.sh
 ./run_prod.sh
 ```
 
----
-
-## Part 4: Deploy Frontend (Choose ONE)
+## Step 3: Frontend Deployment
 
 Navigate to: `Fixing Broken Project/mediconnect-frontend (Our Work)`
 
-### Option A: Run from Source (Dev Mode) - **EASIEST** ✅
-1.  **Create .env:**
-    ```bash
-    echo "VITE_API_URL=http://localhost:8080/api" > .env
-    ```
-2.  **Run:**
-    ```bash
-    npm install
-    npm run dev -- --host
-    ```
+### Option A: Run from Source
+1.  **Create .env:** `echo "VITE_API_URL=http://localhost:8080/api" > .env`
+2.  **Run:** `npm install && npm run dev -- --host`
 
-### Option B: Production Build (Recommended for Interview) 🏆
-Minified, fast, and professional.
+### Option B: Production Build (Dist)
+1.  **Build:** `npm run build`
+2.  **Serve:** `sudo npm install -g serve && serve -s dist -l 5173`
 
-1.  **Build:**
-    ```bash
-    npm run build
-    ```
-2.  **Serve (Run):**
-    ```bash
-    # Install server tool
-    sudo npm install -g serve
-    
-    # Run the 'dist' folder on port 5173
-    serve -s dist -l 5173
-    ```
-
-### Option C: Docker 🐳 (The "Pro" Way for Interviews)
-*This shows you know modern DevOps. It runs the app inside a container, ensuring it works exactly the same on every machine.*
-
-**Prerequisite:** Make sure Docker is installed (`sudo apt install docker.io`).
-
-**Step 1: Navigate to the Folder**
-```bash
-cd "Fixing Broken Project/mediconnect-frontend (Our Work)"
-```
-
-**Step 2: Create the Environment File**
-Docker needs to know where your Backend is.
-```bash
-# Create the file
-nano .env
-```
-**Paste this inside:**
-```env
-VITE_API_URL=http://localhost:8080/api
-```
-*(Save: Ctrl+O, Enter, Ctrl+X)*
-
-**Step 3: Build the Docker Image**
-This commands packages your code, Node.js, and all dependencies into a single "Image".
-```bash
-# -t names the image 'mediconnect-frontend'
-# The dot '.' means "look in the current folder"
-sudo docker build -t mediconnect-frontend .
-```
-*Wait for it to finish installing npm dependencies.*
-
-**Step 4: Run the Container**
-This actually turns the image on.
-```bash
-# --name name gives it a name
-# --net host lets it see your backend on localhost:8080
-# -d means "detach" (run in background, so it doesn't block your terminal)
-sudo docker run --name frontend-app --net host -d mediconnect-frontend
-```
-
-**Step 5: Verify it's Running**
-```bash
-# Check running containers
-sudo docker ps
-```
-You should see `mediconnect-frontend` in the list.
-
-**Step 6: Open in Browser**
-Go to `http://localhost:5173`.
-If it doesn't open, ensure your Linux firewall isn't blocking it (rare on local setups).
-
-**To Stop it later:**
-```bash
-sudo docker stop frontend-app
-sudo docker rm frontend-app
-```
+### Option C: Docker Container (Detailed)
+1.  **Navigate:** `cd "Fixing Broken Project/mediconnect-frontend (Our Work)"`
+2.  **Conf:** `echo "VITE_API_URL=http://localhost:8080/api" > .env`
+3.  **Build:** `sudo docker build -t mediconnect-frontend .`
+4.  **Run:** `sudo docker run --name frontend-app --net host -d mediconnect-frontend`
 
 ---
 
-## 🎯 Cheat Sheet for Interview
-*   **Database:** "I used Docker for MySQL to keep my host machine clean."
-*   **Security:** "I used Environment Variables for credentials."
-*   **Backend:** "I can run it from source for debugging, or package it as a JAR for production performance."
-*   **Frontend:** "I built a production-ready `dist` folder for optimized loading."
+# 🛣️ PATH B: Docker Compose (The Automation)
+*Follow this path if you want to skip all the manual steps above and just run ONE command.*
+
+**1. Navigate to Project Root:**
+```bash
+cd "Fixing Broken Project"
+```
+
+**2. Run Everything:**
+```bash
+sudo docker compose up --build -d
+```
+*This command reads the `docker-compose.yml` file and automatically:*
+*   starts MySQL
+*   builds and starts Backend
+*   builds and starts Frontend
+
+**3. Verification:**
+*   Frontend: `http://localhost:5173`
+*   Backend: `http://localhost:8080`
+
+**4. Stop it:**
+```bash
+sudo docker compose down
+```
+
+# ☁️ Part 6: Running on EC2 (AWS)
+*Crucial Step if you deploy to the cloud!*
+
+If you run this on a real server (AWS EC2), `localhost` won't work for the Frontend because your browser is on your laptop, not inside the server.
+
+1.  **Edit `docker-compose.yml`:**
+    ```bash
+    nano docker-compose.yml
+    ```
+2.  **Find the Frontend Section:**
+    Change:
+    `VITE_API_URL: http://localhost:8080/api`
+    To:
+    `VITE_API_URL: http://YOUR_EC2_PUBLIC_IP:8080/api`
+    *(Replace `YOUR_EC2_PUBLIC_IP` with the actual IP address of your instance)*
+
+3.  **Restart:**
+    ```bash
+    sudo docker compose down
+    sudo docker compose up --build -d
+    ```
