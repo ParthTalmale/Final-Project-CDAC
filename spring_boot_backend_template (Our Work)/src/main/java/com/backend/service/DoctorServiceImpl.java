@@ -53,6 +53,13 @@ public class DoctorServiceImpl implements DoctorService {
 	        return pageResult.map(this::mapToDto);
 	    }
 
+	    @Override
+	    public List<DoctorResponseDto> getActiveDoctorsOnly() {
+	        return doctorRepository.findAll().stream()
+	                .map(this::mapToDto)
+	                .collect(java.util.stream.Collectors.toList());
+	    }
+
 	    private DoctorResponseDto mapToDto(DoctorEntity doctor) {
 	        return new DoctorResponseDto(
 	                doctor.getId(),

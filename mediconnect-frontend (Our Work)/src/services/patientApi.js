@@ -110,7 +110,8 @@ export async function getDoctorsConsultedCount(patientId) {
  */
 export async function getAllDoctors() {
     try {
-        const response = await api.get('/doctor');
+        // Use the patient-specific endpoint to avoid Admin filter issues
+        const response = await api.get('/patient/allDoctors');
         return response.data;
     } catch (error) {
         console.error("Error fetching all doctors:", error);

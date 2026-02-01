@@ -89,73 +89,51 @@ export default function PatientDashboard() {
 
     return (
         <Container className="py-4">
-            <h2 className="mb-4">Welcome back, {user?.name}</h2>
+            <div className="d-flex justify-content-between align-items-center mb-4">
+                <h2 className="mb-0">Welcome back, {user?.name}</h2>
+                <Button variant="primary" onClick={() => window.location.href = '/patient/appointments/1'}>
+                    <i className="bi bi-plus-lg me-2"></i>Book New Appointment
+                </Button>
+            </div>
 
             {message && <Alert variant={message.type} onClose={() => setMessage(null)} dismissible>{message.text}</Alert>}
 
-            {/* Stats Row */}
-            <Row className="mb-4">
-                <Col md={4}>
-                    <Card className="text-center shadow-sm p-3">
-                        <Card.Body>
-                            <h5>Last Visit</h5>
-                            <h3 className="text-primary">{stats.lastVisit}</h3>
-                        </Card.Body>
-                    </Card>
-                </Col>
-                <Col md={4}>
-                    <Card className="text-center shadow-sm p-3">
-                        <Card.Body>
-                            <h5>Doctors Consulted</h5>
-                            <h3 className="text-success">{stats.doctorsCount}</h3>
-                        </Card.Body>
-                    </Card>
-                </Col>
-                <Col md={4}>
-                    <Card className="text-center shadow-sm p-3">
-                        <Card.Body>
-                            <h5>Completed Checks</h5>
-                            <h3 className="text-info">{stats.completedAppointments}</h3>
-                        </Card.Body>
-                    </Card>
-                </Col>
-            </Row>
-
-            {/* Reports Section */}
-            <Card className="shadow-sm border-0">
-                <Card.Header className="bg-white d-flex justify-content-between align-items-center py-3">
-                    <h5 className="mb-0">My Medical Records</h5>
-                    <Button variant="primary" onClick={() => setShowUploadModal(true)}>
-                        <i className="bi bi-upload me-2"></i> Upload Report
-                    </Button>
+            {/* Upcoming Appointments Section */}
+            <Card className="shadow-sm border-0 mb-4">
+                <Card.Header className="bg-white py-3">
+                    <h5 className="mb-0">Upcoming Appointments</h5>
                 </Card.Header>
                 <Card.Body>
-                    {reports.length === 0 ? (
-                        <p className="text-muted text-center">No medical records found.</p>
+                    {appointments.length === 0 ? (
+                        <div className="text-center py-4">
+                            <p className="text-muted mb-3">No upcoming appointments scheduled.</p>
+                            <Button variant="outline-primary" onClick={() => window.location.href = '/patient/appointments/1'}>
+                                Book Your First Appointment
+                            </Button>
+                        </div>
                     ) : (
                         <Table hover responsive>
                             <thead>
                                 <tr>
-                                    <th>Date</th>
-                                    <th>Type</th>
-                                    <th>File Name</th>
-                                    <th>Action</th>
+                                    <th>Date & Time</th>
+                                    <th>Doctor</th>
+                                    <th>Department</th>
+                                    <th>Status</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {reports.map((report) => (
-                                    <tr key={report.id}>
-                                        <td>{report.appointmentDate || "N/A"}</td>
-                                        <td><span className="badge bg-secondary">{report.recordType}</span></td>
-                                        <td>{report.fileName}</td>
+                                {appointments.map((appt) => (
+                                    <tr key={appt.appointmentId}>
                                         <td>
-                                            <Button
-                                                variant="outline-primary"
-                                                size="sm"
-                                                onClick={() => downloadMedicalRecord(report.id, report.fileName)}
-                                            >
-                                                Download
-                                            </Button>
+                                            <div className="fw-bold">{appt.appointmentDate}</div>
+                                            <small className="text-muted">{appt.appointmentTime}</small>
+                                        </td>
+                                        <td>{appt.doctorName}</td>
+                                        <td>{appt.department}</td>
+                                        <td>
+                                            <span className={`badge bg-${appt.status === 'CONFIRMED' ? 'success' : 'warning'}`}>
+                                                {appt.status}
+                                            </span>
                                         </td>
                                     </tr>
                                 ))}
@@ -165,7 +143,38 @@ export default function PatientDashboard() {
                 </Card.Body>
             </Card>
 
-            {/* Upload Modal */}
+            {/* Quick Actions */}
+            <h5 className="mb-3">Quick Actions</h5>
+            <Row>
+                <Col md={6} className="mb-3">
+                    <Card className="h-100 shadow-sm border-0 hover-card" role="button" onClick={() => window.location.href = '/patient/appointments/1'}>
+                        <Card.Body className="d-flex align-items-center p-4">
+                            <div className="bg-primary bg-opacity-10 p-3 rounded-circle me-3">
+                                <i className="bi bi-calendar-plus text-primary fs-4"></i>
+                            </div>
+                            <div>
+                                <h6 className="mb-1">Book Appointment</h6>
+                                <small className="text-muted">Schedule a visit with detailed consultation</small>
+                            </div>
+                        </Card.Body>
+                    </Card>
+                </Col>
+                <Col md={6} className="mb-3">
+                    <Card className="h-100 shadow-sm border-0 hover-card" role="button" onClick={() => window.location.href = '/patient/emergency'}>
+                        <Card.Body className="d-flex align-items-center p-4">
+                            <div className="bg-danger bg-opacity-10 p-3 rounded-circle me-3">
+                                <i className="bi bi-telephone text-danger fs-4"></i>
+                            </div>
+                            <div>
+                                <h6 className="mb-1">Emergency Contacts</h6>
+                                <small className="text-muted">Manage your emergency contact details</small>
+                            </div>
+                        </Card.Body>
+                    </Card>
+                </Col>
+            </Row>
+
+            {/* Upload Modal (Kept just in case logic needs it, but button removed from UI) */}
             <Modal show={showUploadModal} onHide={() => setShowUploadModal(false)}>
                 <Modal.Header closeButton>
                     <Modal.Title>Upload Medical Record</Modal.Title>
@@ -186,9 +195,6 @@ export default function PatientDashboard() {
                                     </option>
                                 ))}
                             </Form.Select>
-                            <Form.Text className="text-muted">
-                                Records must be linked to a specific appointment.
-                            </Form.Text>
                         </Form.Group>
                         <Form.Group className="mb-3">
                             <Form.Label>Record Type</Form.Label>

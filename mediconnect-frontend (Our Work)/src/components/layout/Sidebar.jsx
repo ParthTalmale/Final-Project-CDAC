@@ -20,7 +20,7 @@ export default function Sidebar({ collapsed, toggleCollapse }) {
             { to: "/patient/dashboard", label: "Dashboard", icon: "bi-speedometer2" },
             { to: "/patient/appointments", label: "My Appointments", icon: "bi-calendar-event" },
             // { to: "/patient/payments", label: "Payments", icon: "bi-wallet2" },
-            { to: "/patient/records", label: "Medical Records", icon: "bi-file-earmark-medical" },
+            //{ to: "/patient/records", label: "Medical Records", icon: "bi-file-earmark-medical" },
             { to: "/patient/emergency", label: "Emergency Contacts", icon: "bi-telephone" },
             { to: "/patient/settings", label: "Settings", icon: "bi-gear" },
         ],

@@ -10,6 +10,8 @@ import com.backend.entities.DoctorAvailability;
 public interface DoctorService {
 	org.springframework.data.domain.Page<DoctorResponseDto> getAllDoctors(String keyword, String department, org.springframework.data.domain.Pageable pageable);
 
+    java.util.List<DoctorResponseDto> getActiveDoctorsOnly();
+
 	List<DoctorAvailabilityResponseDto> getAvailabilityForDates(Long doctor_id, LocalDate date);
 
     com.backend.dtos.DoctorDashboardDto getDashboardStats(Long doctorId);

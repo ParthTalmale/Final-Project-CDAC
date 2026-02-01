@@ -90,7 +90,8 @@ public class PatientApiController {
 
     @GetMapping("/allDoctors")
     public ResponseEntity<List<DoctorResponseDto>> getAllDoctors() {
-        return ResponseEntity.ok(doctorService.getAllDoctors("", "", org.springframework.data.domain.Pageable.unpaged()).getContent());
+        // Use the dedicated method for patients to avoid Admin filter conflicts
+        return ResponseEntity.ok(doctorService.getActiveDoctorsOnly());
     }
 
     @GetMapping("/emergencyContacts")
