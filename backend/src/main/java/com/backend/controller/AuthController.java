@@ -79,7 +79,7 @@ public class AuthController {
     // Protected endpoint for Admins to register Staff (Doctor/Admin/Nurse)
     // SecurityConfig does NOT whitelist this, so it requires Authentication
     @PostMapping("/register-staff")
-    //@org.springframework.security.access.prepost.PreAuthorize("hasRole('ADMIN')")
+    @org.springframework.security.access.prepost.PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<com.backend.dtos.UserDto> registerStaff(@Valid @RequestBody com.backend.dtos.RegisterDto registerDto) {
         return ResponseEntity.status(org.springframework.http.HttpStatus.CREATED)
                 .body(userService.registerUser(registerDto));
