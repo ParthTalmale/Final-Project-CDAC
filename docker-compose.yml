@@ -48,7 +48,7 @@ services:
       # On Linux --net host is best, but for Compose bridge network, 
       # we usually point client to localhost if mapped, or reverse proxy.
       # For simplicity in dev, we point to localhost as the user accesses via browser.
-      VITE_API_URL: http://3.110.168.176:8080/api
+      VITE_API_URL: http://52.66.229.48:8080/api
 
 volumes:
   mysql_data:
