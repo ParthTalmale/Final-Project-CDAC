@@ -52,12 +52,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         System.out.println("JwtAuthFilter: Processing request for " + request.getRequestURI());
 
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-            System.out.println("JwtAuthFilter: No valid header found, passing chain");
+            System.out.println("JwtAuthFilter: WARNING - No valid header found!");
+            System.out.println("JwtAuthFilter: Header Value: " + (authHeader == null ? "NULL" : authHeader));
             filterChain.doFilter(request, response);
             return;
         }
 
         jwt = authHeader.substring(7);
+        System.out.println("JwtAuthFilter: Token Extracted: " + jwt.substring(0, Math.min(jwt.length(), 10)) + "...");
         try {
             userEmail = jwtUtils.extractUsername(jwt);
             System.out.println("JwtAuthFilter: Checking token for user: " + userEmail);
