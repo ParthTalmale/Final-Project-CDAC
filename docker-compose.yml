@@ -10,7 +10,6 @@ services:
       MYSQL_DATABASE: mediConnectDb
       MYSQL_USER: D6_93044_Parth
       MYSQL_PASSWORD: manager
-    ports:
     volumes:
       - mysql_data:/var/lib/mysql
     healthcheck:
