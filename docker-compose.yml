@@ -1,12 +1,9 @@
 services:
-  # 1. Database Service
   mysql:
     image: mysql:8.0
     container_name: mysql-container
     environment:
-      # Root password for admin access
       MYSQL_ROOT_PASSWORD: root
-      # These variables AUTO-CREATE the database and user on first startup!
       MYSQL_DATABASE: mediConnectDb
       MYSQL_USER: D6_93044_Parth
       MYSQL_PASSWORD: manager
@@ -18,7 +15,6 @@ services:
       timeout: 5s
       retries: 5
 
-  # 2. Backend Service
   backend:
     build: ./backend
     container_name: backend-app
@@ -26,29 +22,23 @@ services:
       mysql:
         condition: service_healthy
     ports:
-      - "8080:8080"
+      - "8080:8080"   # TEMPORARY (will remove after HTTPS)
     environment:
-      # Connected to the internal 'mysql' service name
       DB_URL: jdbc:mysql://mysql:3306/mediConnectDb?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
       DB_USERNAME: D6_93044_Parth
       DB_PASSWORD: manager
       RAZORPAY_KEY: rzp_test_SA3qJqIkr0IH3u
       RAZORPAY_SECRET: rhMAmdHBMZUxX1BUahx0myrG
 
-  # 3. Frontend Service
   frontend:
     build: ./frontend
     container_name: frontend-app
     depends_on:
       - backend
     ports:
-      - "5173:5173"
+      - "5173:5173"   # TEMPORARY
     environment:
-      # Browser needs to reach backend. 
-      # On Linux --net host is best, but for Compose bridge network, 
-      # we usually point client to localhost if mapped, or reverse proxy.
-      # For simplicity in dev, we point to localhost as the user accesses via browser.
-      VITE_API_URL: http://52.66.229.48:8080/api
+      VITE_API_URL: /api
 
 volumes:
   mysql_data:
