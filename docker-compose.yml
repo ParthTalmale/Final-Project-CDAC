@@ -22,13 +22,13 @@ services:
       mysql:
         condition: service_healthy
     ports:
-      - "8080:8080"   # TEMPORARY (will remove after HTTPS)
+      - "8080:8080"   # TEMPORARY      # Connected to the internal 'mysql' service name
     environment:
       DB_URL: jdbc:mysql://mysql:3306/mediConnectDb?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
-      DB_USERNAME: D6_93044_Parth
-      DB_PASSWORD: manager
-      RAZORPAY_KEY: rzp_test_SA3qJqIkr0IH3u
-      RAZORPAY_SECRET: rhMAmdHBMZUxX1BUahx0myrG
+      DB_USERNAME: medi_user
+      DB_PASSWORD: medi_password
+      RAZORPAY_API_KEY: rzp_test_SA3qJqIkr0IH3u
+      RAZORPAY_API_SECRET: rhMAmdHBMZUxX1BUahx0myrG
 
   frontend:
     build: ./frontend
