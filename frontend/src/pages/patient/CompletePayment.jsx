@@ -43,7 +43,7 @@ const CompletePayment = () => {
 
       const options = {
         // actually better to get it from backend if possible, but for now placeholder.
-        key: "rzp_test_SA3qJqIkr0IH3u",
+        key: import.meta.env.VITE_RAZORPAY_KEY_ID,
         amount: orderResponse.amount, // Amount in paise
         currency: "INR",
         name: "MediConnect",

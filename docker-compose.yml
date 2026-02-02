@@ -39,6 +39,8 @@ services:
       - "5173:5173"   # TEMPORARY
     environment:
       VITE_API_URL: /api
+      # PASTE YOUR NEW KEY BELOW (SAME AS BACKEND)
+      VITE_RAZORPAY_KEY_ID: rzp_test_SBPwwtjSFlv2x1
 
 volumes:
   mysql_data:
