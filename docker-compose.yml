@@ -8,8 +8,8 @@ services:
       MYSQL_ROOT_PASSWORD: root
       # These variables AUTO-CREATE the database and user on first startup!
       MYSQL_DATABASE: mediConnectDb
-      MYSQL_USER: medi_user
-      MYSQL_PASSWORD: medi_password
+      MYSQL_USER: D6_93044_Parth
+      MYSQL_PASSWORD: manager
     ports:
       - "3306:3306"
     volumes:
@@ -32,8 +32,8 @@ services:
     environment:
       # Connected to the internal 'mysql' service name
       DB_URL: jdbc:mysql://mysql:3306/mediConnectDb?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
-      DB_USERNAME: medi_user
-      DB_PASSWORD: medi_password
+      DB_USERNAME: D6_93044_Parth
+      DB_PASSWORD: manager
       RAZORPAY_KEY: rzp_test_SA3qJqIkr0IH3u
       RAZORPAY_SECRET: rhMAmdHBMZUxX1BUahx0myrG
 

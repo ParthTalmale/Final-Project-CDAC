@@ -1,23 +1,22 @@
-# Use Node.js 20 on Alpine Linux (Lightweight)
+# Use Node.js 20 on Alpine Linux
 FROM node:20-alpine
 
-# Set working directory
 WORKDIR /app
 
-# Install Yarn explicitly
-RUN npm install -g yarn
+# Enable Corepack (comes with Node 20)
+RUN corepack enable
 
-# Copy package.json and package-lock.json first (for better caching)
-COPY package.json package-lock.json ./
+# Copy dependency files first (better caching)
+COPY package.json yarn.lock ./
 
 # Install dependencies
-RUN npm install
+RUN yarn install
 
-# Copy the rest of the application code
+# Copy rest of the app
 COPY . .
 
-# Expose the port Vite runs on
 EXPOSE 5173
 
-# Start the application
-CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0"]
+# Run Vite
+CMD ["yarn", "dev", "--host", "0.0.0.0"]
+

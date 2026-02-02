@@ -30,6 +30,20 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                                     @NonNull HttpServletResponse response, 
                                     @NonNull FilterChain filterChain)
             throws ServletException, IOException {
+            
+            
+            //open the Register Staff endpoint to have atleast 1 admin
+            
+        //String path = request.getRequestURI();
+
+	//if (
+    	//	path.equals("/api/auth/login") ||
+    	//	path.equals("/api/auth/register-patient") ||
+    	//	path.equals("/api/auth/register-staff")
+	//) {
+    	//filterChain.doFilter(request, response);
+    	//return;
+	//}
         
         final String authHeader = request.getHeader("Authorization");
         final String jwt;
