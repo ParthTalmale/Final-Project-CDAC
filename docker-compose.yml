@@ -27,8 +27,8 @@ services:
       DB_URL: jdbc:mysql://mysql:3306/mediConnectDb?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
       DB_USERNAME: D6_93044_Parth
       DB_PASSWORD: manager
-      RAZORPAY_API_KEY: rzp_test_SBPwwtjSFlv2x1
-      RAZORPAY_API_SECRET: hhJSxsTY0wWT20GtuBiJUgPz
+      RAZORPAY_API_KEY: some key
+      RAZORPAY_API_SECRET: some secret
 
   frontend:
     build: ./frontend
@@ -40,7 +40,7 @@ services:
     environment:
       VITE_API_URL: /api
       # PASTE YOUR NEW KEY BELOW (SAME AS BACKEND)
-      VITE_RAZORPAY_KEY_ID: rzp_test_SBPwwtjSFlv2x1
+      VITE_RAZORPAY_KEY_ID: Some id 
 
 volumes:
   mysql_data:
